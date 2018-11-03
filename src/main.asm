@@ -24,6 +24,7 @@ incsrc "z3/hirom.asm"	                    ; ALTTP ExHiROM patch
 incsrc "z3/transition.asm"                  ; ALTTP Transition patch
 incsrc "z3/teleport.asm"                    ; ALTTP Teleport patch
 incsrc "z3/randomizer/randomizer.asm"       ; ALTTP Randomizer patches (github.com/mmxbass/z3randomizer)
+;incsrc "z3/randomizer/LTTP_RND_GeneralBugfixes.asm"	; ALTTP Randomizer patches (KK's makefile)
 incsrc "z3/items.asm"                       ; ALTTP Super Metroid Items
 incsrc "z3/ending.asm"                      ; ALTTP Ending Conditions
 incsrc "z3/newgame.asm"                     ; ALTTP New Game Initialization
