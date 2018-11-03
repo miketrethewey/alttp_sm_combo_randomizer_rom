@@ -1,1 +1,7 @@
 tournament.asm
+*.sfc
+*.srm
+*.bst
+*.sym
+*.bak
+*.log
