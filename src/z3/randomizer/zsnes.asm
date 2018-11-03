@@ -99,11 +99,11 @@ STP ; !
 org $378000
 
 ZSNES_Tiles:
-    incbin zsnes_tiles.bin
+    incbin data/zsnes_tiles.bin
     
 ZSNES_TileMap:
-    incbin zsnes_tilemap.bin
+    incbin data/zsnes_tilemap.bin
 
 ZSNES_Palette:
-    incbin zsnes_pal.bin
+    incbin data/zsnes_pal.bin
 	
