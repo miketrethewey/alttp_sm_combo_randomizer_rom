@@ -18,6 +18,7 @@ incsrc "sm/items.asm"                       ; Super Metroid ALTTP Items patch
 incsrc "sm/ending.asm"                      ; Super Metroid Ending conditions
 incsrc "sm/newgame.asm"                     ; Super Metroid New Game Initialization
 incsrc "sm/nofanfare.asm"                   ; Super Metroid Remove Item fanfares
+incsrc "sm/SM_maps.asm"						; Super Metroid pause screen map hacks
 
 ; --- ALTTP code ---
 incsrc "z3/hirom.asm"	                    ; ALTTP ExHiROM patch
