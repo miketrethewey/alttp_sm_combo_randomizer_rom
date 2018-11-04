@@ -86,7 +86,8 @@ incsrc icepalacegraphics.asm
 incsrc rngfixes.asm
 incsrc openmode.asm
 incsrc stats.asm
-incsrc textskip_functions.asm
+incsrc boots.asm              ; New KK code
+incsrc textskip_functions.asm ; Custom Total/SmolBig code
 
 org $1C8000 ; text tables for translation
 incbin data/i18n_en.bin

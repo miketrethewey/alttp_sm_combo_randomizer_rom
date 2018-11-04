@@ -45,11 +45,12 @@ org $008023 ;<- 23 - Bank00.asm : 36 (LDA.w #$01FF : TCS)
 ;================================================================================
 ; D-Pad Invert
 ;--------------------------------------------------------------------------------
+; FIXME: ALttP Crowd Control
 ;org $0083D9 ; <- 3D9 - Bank00.asm : 611 (LDA $4219 : STA $01)
 ;JSL.l InvertDPad : NOP
-org $0083D4 ; <- 3D4 - Bank00.asm : 610 (LDA $4218 : STA $00)
-JML.l InvertDPad : SKIP 6
-InvertDPadReturn:
+; org $0083D4 ; <- 3D4 - Bank00.asm : 610 (LDA $4218 : STA $00)
+; JML.l InvertDPad : SKIP 6
+; InvertDPadReturn:
 ; label found in dpadinvert.asm
 ;--------------------------------------------------------------------------------
 
@@ -81,51 +82,67 @@ JSL.l OnQuit
 ;================================================================================
 ; Title Screen
 ;--------------------------------------------------------------------------------
-org $0CCDA5 ; <- Bank0C.asm : 1650 (JSL Palette_SelectScreen)
-JSL.l SetFileSelectPalette
+; FIXME: ALttP File Select; one save file; tracker display
+; org $0CCDA5 ; <- Bank0C.asm : 1650 (JSL Palette_SelectScreen)
+; JSL.l SetFileSelectPalette
+; label found in fileselect.asm:767
 ;--------------------------------------------------------------------------------
-org $0CCE41 ; <- 64E41 - Bank0C.asm : 1907 (DEC $C8 : BPL .done)
-JSL FSCursorUp : NOP #4 ; set cursor to only select first file and erase
-org $0CCE50 ; <- 64E50 - Bank0C.asm : 1918 (INC $C8)
-JSL FSCursorDown : NOP #6 ; set cursor to only select first file and erase
-org $0CCE0F ; < 64E0F - Bank0C.asm : 1880 (LDX $00 : INX #2 : CPX.w #$0006 : BCC .nextFile)
-NOP #9 ; don't draw the other two save files
+; FIXME: ALttP File Select; one save file; tracker display
+; org $0CCE41 ; <- 64E41 - Bank0C.asm : 1907 (DEC $C8 : BPL .done)
+; JSL FSCursorUp : NOP #4 ; set cursor to only select first file and erase
+; org $0CCE50 ; <- 64E50 - Bank0C.asm : 1918 (INC $C8)
+; JSL FSCursorDown : NOP #6 ; set cursor to only select first file and erase
+; org $0CCE0F ; < 64E0F - Bank0C.asm : 1880 (LDX $00 : INX #2 : CPX.w #$0006 : BCC .nextFile)
+; NOP #9 ; don't draw the other two save files
+; labels found in fileselect.asm
 ;--------------------------------------------------------------------------------
-org $0CCE71 ; <- Bank0C.asm : 1941 (LDA.b #$F1 : STA $012C)
-JML.l FSSelectFile : NOP
+; FIXME: ALttP File Select; one save file; tracker display
+; org $0CCE71 ; <- Bank0C.asm : 1941 (LDA.b #$F1 : STA $012C)
+; JML.l FSSelectFile : NOP
+; label found in fileselect.asm:862
 FSSelectFile_continue:
 org $0CCEB1 ; <- Bank0C.asm : 2001 (.return)
 FSSelectFile_return:
 ;--------------------------------------------------------------------------------
+; FIXME: ALttP File Select; one save file; tracker display
 ; Replace copy file module with a fully custom module
-org $008061+$02 ; <- Bank00.asm : 103 (dl Module_CopyFile)
-db Module_Password
-org $00807D+$02 ; <- Bank00.asm : 103 (dl Module_CopyFile)
-db Module_Password>>8
-org $008099+$02 ; <- Bank00.asm : 103 (dl Module_CopyFile)
-db Module_Password>>16
+; org $008061+$02 ; <- Bank00.asm : 103 (dl Module_CopyFile)
+; db Module_Password
+; org $00807D+$02 ; <- Bank00.asm : 103 (dl Module_CopyFile)
+; db Module_Password>>8
+; org $008099+$02 ; <- Bank00.asm : 103 (dl Module_CopyFile)
+; db Module_Password>>16
+; label found in password.asm:6
 
+; FIXME: ALttP File Select; one save file; tracker display
 ; Hook up password screen tilemap
-org $00937a+$07
-db Password_Tilemap
-org $009383+$07
-db Password_Tilemap>>8
-org $00938c+$07
-db Password_Tilemap>>16
+; org $00937a+$07
+; db Password_Tilemap
+; org $009383+$07
+; db Password_Tilemap>>8
+; org $00938c+$07
+; db Password_Tilemap>>16
+; label found in password.asm:383
 ;--------------------------------------------------------------------------------
-org $0CD527 ; <- 65527 : Bank0C.asm : 2913 (LDA.w #$0004 : STA $02) [LDA.w #$0006 : STA $02]
-JSL.l DrawPlayerFile : NOP ; hijack hearts draw routine to draw a full inventory
+; FIXME: ALttP File Select; one save file; tracker display
+; org $0CD527 ; <- 65527 : Bank0C.asm : 2913 (LDA.w #$0004 : STA $02) [LDA.w #$0006 : STA $02]
+; JSL.l DrawPlayerFile : NOP ; hijack hearts draw routine to draw a full inventory
+; label found in fileselect.asm:115
 
-org $0ccdd5 ; Bank0C.asm:1881 (LDX.w #$00FD)
-JSL.l AltBufferTable : NOP #8 ; Selection screen
-org $0cd393 ; Bank0c.asm:2674 (LDX.w #$00FD)
-JSL.l AltBufferTable : NOP #8 ; Delete screen
+; FIXME: ALttP File Select; one save file; tracker display
+; org $0ccdd5 ; Bank0C.asm:1881 (LDX.w #$00FD)
+; JSL.l AltBufferTable : NOP #8 ; Selection screen
+; org $0cd393 ; Bank0c.asm:2674 (LDX.w #$00FD)
+; JSL.l AltBufferTable : NOP #8 ; Delete screen
+; label found in fileselect.asm:591
 ;--------------------------------------------------------------------------------
-org $0CCCCC ;<- 64CCC - Bank0C.asm : 1628 (JSL Intro_ValidateSram) / Bank02.asm : 75 (REP #$30)
+; FIXME:
+; org $0CCCCC ;<- 64CCC - Bank0C.asm : 1628 (JSL Intro_ValidateSram) / Bank02.asm : 75 (REP #$30)
 ; Explanation: In JP 1.0 the code for Intro_ValidateSram was inline in Bank 0C
-JML.l Validate_SRAM ;(Return via RTL. Original code JML'd to Intro_LoadSpriteStats which returns with RTL, but we want to skip that)
-org $0CCD57 ;<- 64D57 - Bank0C.asm :
-RTL ;Just in case anybody ever removes the previous hook
+; JML.l Validate_SRAM ;(Return via RTL. Original code JML'd to Intro_LoadSpriteStats which returns with RTL, but we want to skip that)
+; org $0CCD57 ;<- 64D57 - Bank0C.asm :
+; RTL ;Just in case anybody ever removes the previous hook
+; label found in fileselect.asm:723
 ;--------------------------------------------------------------------------------
 org $00E55D ; <- 0655D - Bank00.asm : 5473 (LDA.w #$7000 : STA $2116)
 LDA.w #$2000 ; Load file select screen graphics to VRAM word addres 0x2000 instead of 0x7000
@@ -158,19 +175,21 @@ db $51
 ;================================================================================
 ; Name Entry Screen
 ;--------------------------------------------------------------------------------
-org $0CD7BE ; <- 657BE : Bank0C.asm : 3353 (STA $7003D9, X)
-JSL.l WriteBlanksToPlayerName
-org $0CDB11 ; <- 65B11 : Bank0C.asm : 3605 (LDA $00 : AND.w #$FFF0 : ASL A : ORA $02 : STA $7003D9, X)
-JSL.l WriteCharacterToPlayerName
-org $0CDCA9 ; <- 65CA9 : Bank0C.asm : 3853 (LDA $7003D9, X)
-JSL.l ReadCharacterFromPlayerName
-org $0CDC90 ; <- 65C90 : Bank0C.asm : 3847 (ORA $DD24, Y) [ORA $DC82, Y]
-JSL.l GetCharacterPosition
-org $0CDA79 ; <- 65A79 : Bank0C.asm : 3518 (LDA $0CDA13, X : STA $0800, Y) [LDA $0CD98f, X : ...]
-LDA.l HeartCursorPositions, X
-org $0CDAEB ; <- 65AEB : Bank0C.asm : 3571-3575,3581-3587 (...) [LDA $0B12 : AND #$03]
-; JP here is different. Indicated line number implement the US version of the same functionality
-JSL.l WrapCharacterPosition : NOP
+; FIXME: ALttP File Create; one save file; 4x3 characters
+; org $0CD7BE ; <- 657BE : Bank0C.asm : 3353 (STA $7003D9, X)
+; JSL.l WriteBlanksToPlayerName
+; org $0CDB11 ; <- 65B11 : Bank0C.asm : 3605 (LDA $00 : AND.w #$FFF0 : ASL A : ORA $02 : STA $7003D9, X)
+; JSL.l WriteCharacterToPlayerName
+; org $0CDCA9 ; <- 65CA9 : Bank0C.asm : 3853 (LDA $7003D9, X)
+; JSL.l ReadCharacterFromPlayerName
+; org $0CDC90 ; <- 65C90 : Bank0C.asm : 3847 (ORA $DD24, Y) [ORA $DC82, Y]
+; JSL.l GetCharacterPosition
+; org $0CDA79 ; <- 65A79 : Bank0C.asm : 3518 (LDA $0CDA13, X : STA $0800, Y) [LDA $0CD98f, X : ...]
+; LDA.l HeartCursorPositions, X
+; org $0CDAEB ; <- 65AEB : Bank0C.asm : 3571-3575,3581-3587 (...) [LDA $0B12 : AND #$03]
+; ; JP here is different. Indicated line number implement the US version of the same functionality
+; JSL.l WrapCharacterPosition : NOP
+; labels found in fileselect.asm
 ;--------------------------------------------------------------------------------
 org $0CE43A ; No assembly source. Makes name entry box wider
 db $2C
@@ -229,9 +248,11 @@ NOP #20
 ;================================================================================
 ; Cross World Damage fixes
 ;--------------------------------------------------------------------------------
-org $068891 ; Sprite_Prep.asm : 378 //LDA .damage_class, Y : STA $0CD2, X
-nop #$08
-JSL.l NewBatInit
+; FIXME: ALttP Inverted State; bats damage
+; org $068891 ; Sprite_Prep.asm : 378 //LDA .damage_class, Y : STA $0CD2, X
+; nop #$08
+; JSL.l NewBatInit
+; label found in enemy_adjustments.asm:5
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
@@ -262,16 +283,22 @@ CMP.b #$03 : db #$90 ; !BLT
 org $08A40E ; <- 4240E - ancilla_arrow.asm : 331 (AND.b #$04 : BNE .use_silver_palette)
 CMP.b #$03 : db #$B0 ; !BGE
 ;--------------------------------------------------------------------------------
-org $098127 ; <- 48127 - ancilla_init.asm : 202 (LDA $7EF343 : BNE .player_has_bombs)
-JSL.l LoadBombCount
-org $098133 ; <- 48133 - ancilla_init.asm : 211 (STA $7EF343 : BNE .bombs_left_over)
-JSL.l StoreBombCount
+; FIXME: ALttP Easy Difficulty
+; org $098127 ; <- 48127 - ancilla_init.asm : 202 (LDA $7EF343 : BNE .player_has_bombs)
+; JSL.l LoadBombCount
+; org $098133 ; <- 48133 - ancilla_init.asm : 211 (STA $7EF343 : BNE .bombs_left_over)
+; JSL.l StoreBombCount
+; label found in retro.asm:10
 ;--------------------------------------------------------------------------------
-org $0DE4BF ; <- 6E4BF - equipment.asm : 1249 (LDA $7EF343 : AND.w #$00FF : BEQ .gotNoBombs)
-JSL.l LoadBombCount16
+; FIXME: ALttP Easy Difficulty
+; org $0DE4BF ; <- 6E4BF - equipment.asm : 1249 (LDA $7EF343 : AND.w #$00FF : BEQ .gotNoBombs)
+; JSL.l LoadBombCount16
+; label found in retro.asm:16
 ;--------------------------------------------------------------------------------
-org $0DDEB3 ; <- 6DEB3 - equipment.asm : 328 (LDA $7EF33F, X)
-JSL.l IsItemAvailable
+; FIXME: ALttP Easy Difficulty
+; org $0DDEB3 ; <- 6DEB3 - equipment.asm : 328 (LDA $7EF33F, X)
+; JSL.l IsItemAvailable
+; label found in retro.asm:2
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
@@ -292,34 +319,48 @@ org $028496 ; <- 15496 - Bank02.asm : 959  (LDA $7EF3C8 : PHA)
 JML.l AllowStartFromExit
 AllowStartFromExitReturn:
 ;--------------------------------------------------------------------------------
-org $1bc2a7 ; <- DC2A7 - Bank1B.asm : 1143 (Overworld_CreatePyramidHole:)
-JSL.l Overworld_CreatePyramidHoleModified
-RTL
-C9DE_LONG:
-JSR $C9DE ; surprisingly same address as US
-RTL
+; FIXME: ALttP Inverted State; move pyramid hole
+; org $1bc2a7 ; <- DC2A7 - Bank1B.asm : 1143 (Overworld_CreatePyramidHole:)
+; JSL.l Overworld_CreatePyramidHoleModified
+; RTL
+; C9DE_LONG:
+; JSR $C9DE ; surprisingly same address as US
+; RTL
+; label found in inverted.asm:5
 ;--------------------------------------------------------------------------------
-org $07ff5f ; <- 3ff5f - Bank0E.asm : 5252 (LDA.w #$0E3F : STA $23BC)
-JSL.l Draw_PyramidOverlay
-RTS
+; FIXME: ALttP Inverted State; move pyramid hole
+; org $07ff5f ; <- 3ff5f - Bank0E.asm : 5252 (LDA.w #$0E3F : STA $23BC)
+; JSL.l Draw_PyramidOverlay
+; RTS
+; label found in inverted.asm:82
 ;--------------------------------------------------------------------------------
+; FIXME: ALttP Inverted State; remove electric barrier
 ;Remove Electric Barrier Hook
-org $06891E ; <- sprite_prep.asm : 537 (LDA $7EF280, X : PLX : AND.b #$40 : BEQ .not_dead)
-JSL Electric_Barrier
+; org $06891E ; <- sprite_prep.asm : 537 (LDA $7EF280, X : PLX : AND.b #$40 : BEQ .not_dead)
+; JSL Electric_Barrier
+; label found in inverted.asm:132
 ;--------------------------------------------------------------------------------
-org $08CDAC ; <- ancilla_break_tower_seal.asm : 117 (LDA.b #$05 : STA $04C6)
-JSL GanonTowerAnimation
-NOP #05
+; FIXME: ALttP Inverted State; pre-open GT exterior
+; org $08CDAC ; <- ancilla_break_tower_seal.asm : 117 (LDA.b #$05 : STA $04C6)
+; JSL GanonTowerAnimation
+; NOP #05
+; label found in inverted.asm:140
 ;--------------------------------------------------------------------------------
-org $1AF5C1 ; <- sprite_waterfall.asm : 40 (LDA $8A : CMP.b #$43)
-JSL GanonTowerInvertedCheck
+; FIXME:
+; org $1AF5C1 ; <- sprite_waterfall.asm : 40 (LDA $8A : CMP.b #$43)
+; JSL GanonTowerInvertedCheck
+; label found in inverted.asm:163
 ;--------------------------------------------------------------------------------
-org $02EC8D ; <- bank02.asm : 11981 (LDA.w #$020F : LDX $8A : CPX.w #$0033 : BNE .noRock)
-JSL HardcodedRocks
-NOP #19 ;23 bytes removed with the JSL
+; FIXME:
+; org $02EC8D ; <- bank02.asm : 11981 (LDA.w #$020F : LDX $8A : CPX.w #$0033 : BNE .noRock)
+; JSL HardcodedRocks
+; NOP #19 ;23 bytes removed with the JSL
+; label found in inverted.asm:175
 ;--------------------------------------------------------------------------------
-org $04E7AE ; <- bank0E.asm : 4230 (LDA $7EF287 : AND.w #$0020)
-JSL.l TurtleRockPegSolved
+; FIXME:
+; org $04E7AE ; <- bank0E.asm : 4230 (LDA $7EF287 : AND.w #$0020)
+; JSL.l TurtleRockPegSolved
+; label found in inverted.asm:188
 ;--------------------------------------------------------------------------------
 org $1BBD05 ; <- bank1B.asm : 261 (TYA : STA $00) ; hook starts at the STA
 JML.l PreventEnterOnBonk
@@ -358,9 +399,11 @@ JSL.l SpawnZelda : NOP #2
 ;================================================================================
 ; Alternate Goal
 ;--------------------------------------------------------------------------------
+; FIXME: ALttP Goals; Ganon is invincible if goal not met
 ;Invincible Ganon
-org $06F2C8 ; <- 372C8 - Bank06.asm : 5776 (LDA $44 : CMP.b #$80 : BEQ .no_collision)
-JSL.l GoalItemGanonCheck
+; org $06F2C8 ; <- 372C8 - Bank06.asm : 5776 (LDA $44 : CMP.b #$80 : BEQ .no_collision)
+; JSL.l GoalItemGanonCheck
+; label found in goalitem.asm:9
 ;--------------------------------------------------------------------------------
 ;Hammerable Ganon
 org $06F2EA ; <- 372EA - Bank06.asm : 5791 (LDA $0E20, X : CMP.b #$D6 : BCS .no_collision)
@@ -432,50 +475,60 @@ JSL.l IncrementBigChestCounter
 ;JSL.l DialogOverride
 ;NOP #7
 ;--------------------------------------------------------------------------------
-org $0EF1FF ; 0x771FF <- vwf.asm : 1212 (LDA $7F1200, X : AND.w #$007F : SUB.w #$0066 : BPL .commandByte)
-JSL.l DialogOverride
-org $0EF2DC ; every other LDA $7F1200, X in vwf.asm
-JSL.l DialogOverride
-org $0EF315
-JSL.l DialogOverride
-org $0EF332
-JSL.l DialogOverride
-org $0EF375
-JSL.l DialogOverride
-org $0EF394
-JSL.l DialogOverride
-org $0EF511
-JSL.l DialogOverride
-org $0EF858
-JSL.l DialogOverride
-org $0EFA26
-JSL.l DialogOverride
-org $0EFA4C
-JSL.l DialogOverride
-org $0EFAB4
-JSL.l DialogOverride
-org $0EFAC8
-JSL.l DialogOverride
-org $0EFAE1
-JSL.l DialogOverride
-org $0EFB11
-JSL.l DialogOverride
+; FIXME: ALttP; skip dialog
+; org $0EF1FF ; 0x771FF <- vwf.asm : 1212 (LDA $7F1200, X : AND.w #$007F : SUB.w #$0066 : BPL .commandByte)
+; JSL.l DialogOverride
+; org $0EF2DC ; every other LDA $7F1200, X in vwf.asm
+; JSL.l DialogOverride
+; org $0EF315
+; JSL.l DialogOverride
+; org $0EF332
+; JSL.l DialogOverride
+; org $0EF375
+; JSL.l DialogOverride
+; org $0EF394
+; JSL.l DialogOverride
+; org $0EF511
+; JSL.l DialogOverride
+; org $0EF858
+; JSL.l DialogOverride
+; org $0EFA26
+; JSL.l DialogOverride
+; org $0EFA4C
+; JSL.l DialogOverride
+; org $0EFAB4
+; JSL.l DialogOverride
+; org $0EFAC8
+; JSL.l DialogOverride
+; org $0EFAE1
+; JSL.l DialogOverride
+; org $0EFB11
+; JSL.l DialogOverride
+; label found in dialog.asm:4
 ;--------------------------------------------------------------------------------
-org $0EFBC6 ; <- 77BC6 - vwf.asm : 2717 (LDA.b #$1C : STA $1CE9)
-JSL.l ResetDialogPointer
-RTS
+; FIXME:
+; org $0EFBC6 ; <- 77BC6 - vwf.asm : 2717 (LDA.b #$1C : STA $1CE9)
+; JSL.l ResetDialogPointer
+; RTS
+; label found in dialog.asm:16
 ;--------------------------------------------------------------------------------
-org $0EED0B ; <- PC 0x76D0B - Bank0E.asm : 3276 (LDA $E924, Y : STA $1008, X)
-JSL.l EndingSequenceTableOverride
-NOP #2
+; FIXME: Replace with custom SMALttPR ending sequence
+; org $0EED0B ; <- PC 0x76D0B - Bank0E.asm : 3276 (LDA $E924, Y : STA $1008, X)
+; JSL.l EndingSequenceTableOverride
+; NOP #2
+; label found in endingsequence.asm:4
 ;--------------------------------------------------------------------------------
-org $0EED15 ; <- PC 0x76D15 - Bank0E.asm : 3282 (LDA $E924, Y : STA $1008, X)
-JSL.l EndingSequenceTableOverride
-NOP #2
+; FIXME: Replace with custom SMALttPR ending sequence
+; org $0EED15 ; <- PC 0x76D15 - Bank0E.asm : 3282 (LDA $E924, Y : STA $1008, X)
+; JSL.l EndingSequenceTableOverride
+; NOP #2
+; label found in endingsequence.asm:4
 ;--------------------------------------------------------------------------------
-org $0EED2A ; <- PC 0x76D2A - Bank0E.asm : 3295 (LDA $E924, Y : AND.w #$00FF)
-JSL.l EndingSequenceTableLookupOverride
-NOP #2
+; FIXME: Replace with custom SMALttPR ending sequence
+; org $0EED2A ; <- PC 0x76D2A - Bank0E.asm : 3295 (LDA $E924, Y : AND.w #$00FF)
+; JSL.l EndingSequenceTableLookupOverride
+; NOP #2
+; label found in endingsequence.asm:14
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
@@ -520,24 +573,26 @@ NOP #2
 ;================================================================================
 ; Hard & Masochist Mode Fixes
 ;--------------------------------------------------------------------------------
-org $07D22B ; <- 3D22B - Bank05.asm : 12752 (LDA $D055, Y : STA $0373)
-JSL.l CalculateSpikeFloorDamage : NOP #2
+; FIXME: ALttP Difficulties; Hard+
+; org $07D22B ; <- 3D22B - Bank05.asm : 12752 (LDA $D055, Y : STA $0373)
+; JSL.l CalculateSpikeFloorDamage : NOP #2
 ;--------------------------------------------------------------------------------
-org $08DCC3 ; <- 45CC3 - ancilla_cane_spark.asm : 272 (LDA $7EF36E)
-JSL.l CalculateByrnaUsage
+; org $08DCC3 ; <- 45CC3 - ancilla_cane_spark.asm : 272 (LDA $7EF36E)
+; JSL.l CalculateByrnaUsage
 ;--------------------------------------------------------------------------------
-org $07AE17 ; <- 3AE17 - Bank07.asm : 7285 (LDA $7EF36E)
-JSL.l CalculateCapeUsage
+; org $07AE17 ; <- 3AE17 - Bank07.asm : 7285 (LDA $7EF36E)
+; JSL.l CalculateCapeUsage
 ;--------------------------------------------------------------------------------
-org $07AE98 ; <- 3AE98 - Bank07.asm : 7380 (LDA $7EF36E)
-JSL.l CalculateCapeUsage
+; org $07AE98 ; <- 3AE98 - Bank07.asm : 7380 (LDA $7EF36E)
+; JSL.l CalculateCapeUsage
 ;--------------------------------------------------------------------------------
-org $08DCA7 ; <- 45CA7 - ancilla_cane_spark.asm : 256 (LDA.b #$01 : STA $037B)
-JSL.l ActivateInvulnerabilityOrDont : NOP
+; org $08DCA7 ; <- 45CA7 - ancilla_cane_spark.asm : 256 (LDA.b #$01 : STA $037B)
+; JSL.l ActivateInvulnerabilityOrDont : NOP
 ;--------------------------------------------------------------------------------
-ORG $06EDC6 ;  <- 36DC6 - Bank06.asm : 4890 (LDA $0DB8F1, X)
-JSL.l GetItemDamageValue
+; ORG $06EDC6 ;  <- 36DC6 - Bank06.asm : 4890 (LDA $0DB8F1, X)
+; JSL.l GetItemDamageValue
 ;--------------------------------------------------------------------------------
+; labels found in hardmode.asm
 
 ;================================================================================
 ; Misc Stats
@@ -620,12 +675,14 @@ dw $0000, $0002, $0004, $0032, $0004, $0006, $0030
 ;JSL FlipGreenPendant
 ;NOP #6
 ;--------------------------------------------------------------------------------
-org $08AAE1 ; <- 42AE1 - ancilla_ether_spell.asm : 28 (LDA $031D : CMP.b #$0B)
-JSL.l SetEtherFlicker : NOP
+; FIXME: ALttP Epilepsy changes
+; org $08AAE1 ; <- 42AE1 - ancilla_ether_spell.asm : 28 (LDA $031D : CMP.b #$0B)
+; JSL.l SetEtherFlicker : NOP
 ;--------------------------------------------------------------------------------
-org $0CF37B ; <- 6737B - Bank0C.asm : 5055 (JSL Filter_MajorWhitenMain)
-JSL.l SetAttractMaidenFlicker : NOP #2
+; org $0CF37B ; <- 6737B - Bank0C.asm : 5055 (JSL Filter_MajorWhitenMain)
+; JSL.l SetAttractMaidenFlicker : NOP #2
 ;--------------------------------------------------------------------------------
+; labels found in accessability.asm
 
 ;================================================================================
 ; Ice Floor Toggle
@@ -1323,37 +1380,39 @@ NOP
 ;================================================================================
 ; Glitched Mode Fixes
 ;--------------------------------------------------------------------------------
-org $0691AC ; <- 311AC - sprite_prep.asm:2453 (LDY $0FFF)
-JSL.l GetAgahnimPalette
-NOP #2
+; FIXME: ALttP Glitch Logic
+; org $0691AC ; <- 311AC - sprite_prep.asm:2453 (LDY $0FFF)
+; JSL.l GetAgahnimPalette
+; NOP #2
 ;--------------------------------------------------------------------------------
-org $06F0DD ; <- 370DD - Bank06.asm:5399 (STA $0BA0, X)
-JSL.l GetAgahnimDeath
-NOP #2
+; org $06F0DD ; <- 370DD - Bank06.asm:5399 (STA $0BA0, X)
+; JSL.l GetAgahnimDeath
+; NOP #2
 ;--------------------------------------------------------------------------------
-org $1ED4E6 ; <- F54E6 - sprite_agahnim.asm:314 (LDY $0FFF)
-JSL.l GetAgahnimType
-NOP #2
+; org $1ED4E6 ; <- F54E6 - sprite_agahnim.asm:314 (LDY $0FFF)
+; JSL.l GetAgahnimType
+; NOP #2
 ;--------------------------------------------------------------------------------
-org $1ED577 ; <- F5577 - sprite_agahnim.asm:418 (PHX)
-JML.l GetAgahnimSlot
-GetAgahnimSlotReturn:
+; org $1ED577 ; <- F5577 - sprite_agahnim.asm:418 (PHX)
+; JML.l GetAgahnimSlot
+; GetAgahnimSlotReturn:
 ;--------------------------------------------------------------------------------
-org $1ED678 ; <- F5678 - sprite_agahnim.asm:587 (INC $0E30, X)
-NOP #2
-JSL.l GetAgahnimLightning
+; org $1ED678 ; <- F5678 - sprite_agahnim.asm:587 (INC $0E30, X)
+; NOP #2
+; JSL.l GetAgahnimLightning
 ;--------------------------------------------------------------------------------
-org $0287E0 ; <- 107E0 - Bnak02.asm:1507 (LDA $0112 : ORA $02E4 : ORA $0FFC : BEQ .allowJoypadInput)
-JSL.l AllowJoypadInput : NOP #5
+; org $0287E0 ; <- 107E0 - Bnak02.asm:1507 (LDA $0112 : ORA $02E4 : ORA $0FFC : BEQ .allowJoypadInput)
+; JSL.l AllowJoypadInput : NOP #5
 ;--------------------------------------------------------------------------------
 ; OWG sign on EDM
 ;--------------------------------------------------------------------------------
-org $02EC2E ; Bank02.asm : 11919 LDX.w #$001E
-JSL AddSignToEDMBridge : NOP #$02
+; org $02EC2E ; Bank02.asm : 11919 LDX.w #$001E
+; JSL AddSignToEDMBridge : NOP #$02
 ;--------------------------------------------------------------------------------
-org $02ED51 ; Bank02.asm : 12113 LDX.w #$001E
-JSL AddSignToEDMBridge : NOP #$02
+; org $02ED51 ; Bank02.asm : 12113 LDX.w #$001E
+; JSL AddSignToEDMBridge : NOP #$02
 ;--------------------------------------------------------------------------------
+; labels found in glitched.asm
 
 ;================================================================================
 ; Half Magic Bat
@@ -1365,27 +1424,29 @@ JSL.l GetMagicBatItem
 ;================================================================================
 ; MSU Music
 ;--------------------------------------------------------------------------------
-org $0080D7 ; <- D7 - Bank00.asm:172 (SEP #$30)
-JML msu_main : NOP
-spc_continue:
+; FIXME: ALttP MSU
+; org $0080D7 ; <- D7 - Bank00.asm:172 (SEP #$30)
+; JML msu_main : NOP
+; spc_continue:
 
-org $08C421 ; <- AD4021 F005 - ancilla_receive_item.asm:108 (LDA $2140 : BEQ .wait_for_music)
-JML pendant_fanfare : NOP
-pendant_continue:
+; org $08C421 ; <- AD4021 F005 - ancilla_receive_item.asm:108 (LDA $2140 : BEQ .wait_for_music)
+; JML pendant_fanfare : NOP
+; pendant_continue:
 
-org $08C42B
-pendant_done:
+; org $08C42B
+; pendant_done:
 
-org $08C62A ; <- AD4021 D008 - ancilla_receive_item.asm:442 (LDA $2140 : BNE .waitForSilence)
-JML crystal_fanfare : NOP
-crystal_done:
+; org $08C62A ; <- AD4021 D008 - ancilla_receive_item.asm:442 (LDA $2140 : BNE .waitForSilence)
+; JML crystal_fanfare : NOP
+; crystal_done:
 
-org $08C637
-crystal_continue:
+; org $08C637
+; crystal_continue:
 
-org $0EE6EC ; <- E220 A922 - Bank0E.asm:2892 (SEP #$20 : LDA.b #$22 : STA $012C)
-JSL.l ending_wait
+; org $0EE6EC ; <- E220 A922 - Bank0E.asm:2892 (SEP #$20 : LDA.b #$22 : STA $012C)
+; JSL.l ending_wait
 ;--------------------------------------------------------------------------------
+; labels found in msu.asm
 
 ;================================================================================
 ; Replacement Shopkeeper
@@ -1626,39 +1687,45 @@ NOP #6 ; remove crystal room cutscene check that causes softlocks
 org $06C7BB ; <- 347BB - sprite_ponds.asm:702 (JSL Sprite_ShowMessageFromPlayerContact : BCC BRANCH_ALPHA)
 JSL.l FairyPond_Init
 ;--------------------------------------------------------------------------------
-org $1D92EC ; <- E92EC - sprite_ganon.asm:947 (JSL Sprite_ShowMessageMinimal)
-JSL.l DialogGanon1
+; FIXME: ALttP; overwrite Ganon's speech
+; org $1D92EC ; <- E92EC - sprite_ganon.asm:947 (JSL Sprite_ShowMessageMinimal)
+; JSL.l DialogGanon1
+; label found in dialog.asm:284
 ;--------------------------------------------------------------------------------
-org $1D9078 ; <- E9078 - sprite_ganon.asm:552 (LDA.b #$70 : STA $1CF0)
-JSL.l DialogGanon2 : RTS
+; FIXME: ALttP; overwrite Ganon's speech
+; org $1D9078 ; <- E9078 - sprite_ganon.asm:552 (LDA.b #$70 : STA $1CF0)
+; JSL.l DialogGanon2 : RTS
+; label found in dialog.asm:294
 ;--------------------------------------------------------------------------------
 ;-- Convert Capitalism fairy to shop
 org $06C4BD ; <- 34C4BD - sprite_ponds.asm:107 (LDA $A0 : CMP.b #$15 : BEQ Sprite_HappinessPond)
 JSL.l HappinessPond_Check
 ;--------------------------------------------------------------------------------
+; FIXME:
+; label found in contrib.asm:82
 ;-- Sahasrahla (no green pendant)
-org $05F16C ; <- 2F16C sprite_elder.asm:137 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
-JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
+; org $05F16C ; <- 2F16C sprite_elder.asm:137 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
+; JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
 ;--------------------------------------------------------------------------------
 ;-- Sahasrahla (have boots)
-org $05F1A8 ; <- 2F1A8 sprite_elder.asm:170 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
-JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
+; org $05F1A8 ; <- 2F1A8 sprite_elder.asm:170 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
+; JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
 ;--------------------------------------------------------------------------------
 ;-- Sahasrahla (have boots, have ice rod)
-org $05F1BC ; <- 2F1BC sprite_elder.asm:182 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
-JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
+; org $05F1BC ; <- 2F1BC sprite_elder.asm:182 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
+; JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
 ;--------------------------------------------------------------------------------
 ;-- Sahasrahla (have boots, have ice rod, have 3 pendants)
-org $05F1CE ; <- 2F1CE sprite_elder.asm:194 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
-JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
+; org $05F1CE ; <- 2F1CE sprite_elder.asm:194 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
+; JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
 ;--------------------------------------------------------------------------------
 ;-- Sahasrahla (have boots, have ice rod, have 3 pendants, have master sword)
-org $05F1D8 ; <- 2F1D8 sprite_elder.asm:204 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
-JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
+; org $05F1D8 ; <- 2F1D8 sprite_elder.asm:204 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
+; JSL.l Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
 ;----------------------------------------------------------
 ;-- Bomb shop guy (talking to him before and after big bomb is available)
-org $1EE181 ; <- F6181 sprite_bomb_shop_entity.asm : 85 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
-JSL Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
+; org $1EE181 ; <- F6181 sprite_bomb_shop_entity.asm : 85 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
+; JSL Sprite_ShowSolicitedMessageIfPlayerFacing_Alt
 ;----------------------------------------------------
 ;-- Bombos tablet
 org $05F3BF ; <- 2F3BF sprite_medallion_tablet.asm : 254 (JSL Sprite_ShowMessageUnconditional)
@@ -1676,25 +1743,30 @@ db #$8F
 ;================================================================================
 ; Text Removal
 ;--------------------------------------------------------------------------------
-org $05FA8E
-Sprite_ShowMessageMinimal:
-JML.l Sprite_ShowMessageMinimal_Alt
+; Edited in randomizer.asm:336
+; org $05FA8E
+; Sprite_ShowMessageMinimal:
+; JML.l Sprite_ShowMessageMinimal_Alt
 ;--------------------------------------------------------------------------------
 ;org $1CFD69
 ;Main_ShowTextMessage:
 ;JML.l Main_ShowTextMessage_Alt
 ;--------------------------------------------------------------------------------
-org $07b0cc ; <- 3b0d0 - Bank 07.asm : 7767 (JSL Main_ShowTextMessage)
-JSL.l Main_ShowTextMessage_Alt
+; FIXME:
+; org $07b0cc ; <- 3b0d0 - Bank 07.asm : 7767 (JSL Main_ShowTextMessage)
+; JSL.l Main_ShowTextMessage_Alt
+; label found in dialog.asm:370
 ;--------------------------------------------------------------------------------
-org $08c5fe ; <- 445FE - ancilla_receive_item.asm : 408 (JSL Main_ShowTextMessage)
-JSL.l Main_ShowTextMessage_Alt
+; org $08c5fe ; <- 445FE - ancilla_receive_item.asm : 408 (JSL Main_ShowTextMessage)
+; JSL.l Main_ShowTextMessage_Alt
 ;--------------------------------------------------------------------------------
-org $05E21F ; <- 2E21F - Bank05.asm : 2691 (STZ $0223)
-JSL.l Sprite_ShowMessageMinimal_Alt
-BRA Sprite_ShowMessageUnconditional_Rest
-org $05E232 ; <- 2E232 - Bank05.asm : 2700 (PHX)
-Sprite_ShowMessageUnconditional_Rest:
+; FIXME:
+; label found in dialog.asm:373
+; org $05E21F ; <- 2E21F - Bank05.asm : 2691 (STZ $0223)
+; JSL.l Sprite_ShowMessageMinimal_Alt
+; BRA Sprite_ShowMessageUnconditional_Rest
+; org $05E232 ; <- 2E232 - Bank05.asm : 2700 (PHX)
+; Sprite_ShowMessageUnconditional_Rest:
 ;--------------------------------------------------------------------------------
 ;-- Music restarting at zelda fix
 org $05ED10 ; <- 2ED10 - sprite_zelda.asm : 233 - (LDA.b #$19 : STA $012C)
@@ -1713,18 +1785,22 @@ org $08C3FD ; <- 443FD - ancilla_receive_item.asm : 89
 LDA #$40 : STA !MS_GOT
 ;;NOP #6 ; don't set master sword follower
 ;--------------------------------------------------------------------------------
-org $08C5E5 ; <- 445ED - ancilla_receive_item.asm:395 (LDA .item_messages, Y : CMP.w #$FFFF : BEQ .handleGraphics)
-JSL.l DialogItemReceive : NOP #2
-org $08C301 ; <- 44301 - ancilla_receive_item.asm:8 (.item_messages)
-Ancilla_ReceiveItem_item_messages:
+; FIXME:
+; label found in dialog.asm:258
+; org $08C5E5 ; <- 445ED - ancilla_receive_item.asm:395 (LDA .item_messages, Y : CMP.w #$FFFF : BEQ .handleGraphics)
+; JSL.l DialogItemReceive : NOP #2
+; org $08C301 ; <- 44301 - ancilla_receive_item.asm:8 (.item_messages)
+; Ancilla_ReceiveItem_item_messages:
 ;----------------------------------------------------------
 ;-- Shopkeepers
 org $1EF379 ; <- F7379 sprite_shopkeeper.asm : 810 (JSL Sprite_ShowMessageUnconditional : JSL ShopKeeper_RapidTerminateReceiveItem)
 NOP #4 ;Just remove the rapid terminate call
 ;--------------------------------------------------------------------------------
+; FIXME:
 ;-- Reset Dialog Selection index for each new message
-org $0EEE5D ; <- 76E5D - vwf.asm:84 (JSL Attract_DecompressStoryGfx)
-JSL.l DialogResetSelectionIndex
+; org $0EEE5D ; <- 76E5D - vwf.asm:84 (JSL Attract_DecompressStoryGfx)
+; JSL.l DialogResetSelectionIndex
+; label found in dialog.asm:253
 ;----------------------------------------------------
 ;-- Agahnim 1 Defeated
 org $068475 ; <- 30475 Bank06.asm : 762 - (JSL Sprite_ShowMessageMinimal)
@@ -2033,14 +2109,16 @@ NOP #36
 ;================================================================================
 ;Inverted mode tile map update (executed right after the original tile load)
 ;--------------------------------------------------------------------------------
-org $02ED51 ; <- 16D51
-JSL.l Overworld_LoadNewTiles
-NOP #$02
+; FIXME: ALttP Inverted State
+; org $02ED51 ; <- 16D51
+; JSL.l Overworld_LoadNewTiles
+; NOP #$02
 ;--------------------------------------------------------------------------------
 ;Same as above
-org $02EC2E ;<- 016C2E
-JSL.l Overworld_LoadNewTiles
-NOP #$02
+; org $02EC2E ;<- 016C2E
+; JSL.l Overworld_LoadNewTiles
+; NOP #$02
+; label found in invertedmaps.asm:1
 ;================================================================================
 org $07A3E2 ;<- 3A3E2 Bank07.asm:5764 (LDA.b #$80 : STA $03F0)
 JSL.l FreeDuckCheck : BEQ +
@@ -2048,11 +2126,13 @@ JSL.l FreeDuckCheck : BEQ +
 	skip 3 ; a JSR we need to keep
 +
 ;================================================================================
-org $07A9AC ; <- 3A9AC - Bank07.asm:6628 (LDA $0C : ORA $0E : STA $00 : AND.b #$0C : BEQ BRANCH_BETA)
-JML.l MirrorBonk
-MirrorBonk_NormalReturn:
-org $07A9D1 ; <- 3A9D1 - Bank07.asm:6649 (BRANCH_GAMMA:)
-MirrorBonk_BranchGamma:
+; FIXME: ALttP Inverted State
+; org $07A9AC ; <- 3A9AC - Bank07.asm:6628 (LDA $0C : ORA $0E : STA $00 : AND.b #$0C : BEQ BRANCH_BETA)
+; JML.l MirrorBonk
+; MirrorBonk_NormalReturn:
+; org $07A9D1 ; <- 3A9D1 - Bank07.asm:6649 (BRANCH_GAMMA:)
+; MirrorBonk_BranchGamma:
+; label found in inverted.asm:196
 ;================================================================================
 
 ;================================================================================
@@ -2192,21 +2272,25 @@ org $00DF6E ; <- A few instructions later, right after JSR Do3To4High16Bit
 ;================================================================================
 ; Hook bow use - to use rupees instead of actual arrows
 ;--------------------------------------------------------------------------------
-org $07A055 ; <- Bank07.asm:5205 (LDA $0B99 : BEQ BRANCH_DELTA)
-JSL.l ArrowGame : NOP #14
+; FIXME: ALttP Retro; rupee bow
+; org $07A055 ; <- Bank07.asm:5205 (LDA $0B99 : BEQ BRANCH_DELTA)
+; JSL.l ArrowGame : NOP #14
 
-org $07A06C ; <- Bank07.asm:5215 (LDA $7EF377 : BEQ BRANCH_EPSILON)
-JSL.l DecrementArrows : SKIP 2 : NOP : LDA $7EF377
+; org $07A06C ; <- Bank07.asm:5215 (LDA $7EF377 : BEQ BRANCH_EPSILON)
+; JSL.l DecrementArrows : SKIP 2 : NOP : LDA $7EF377
+; labels found in retro.asm
 ;================================================================================
 
 ;================================================================================
 ; Quick Swap
 ;--------------------------------------------------------------------------------
-org $0287FB ; <- 107FB - Bank02.asm:1526 (LDA $F6 : AND.b #$40 : BEQ .dontActivateMap)
-JSL.l QuickSwap
+; FIXME: ALttP Options; Quick Swap
+; org $0287FB ; <- 107FB - Bank02.asm:1526 (LDA $F6 : AND.b #$40 : BEQ .dontActivateMap)
+; JSL.l QuickSwap
 
-org $02A451 ; <- 12451 - Bank02.asm:6283 (LDA $F6 : AND.b #$40 : BEQ .xButtonNotDown)
-JSL.l QuickSwap
+; org $02A451 ; <- 12451 - Bank02.asm:6283 (LDA $F6 : AND.b #$40 : BEQ .xButtonNotDown)
+; JSL.l QuickSwap
+; label found in quickswap.asm:3
 ;================================================================================
 
 ;================================================================================
@@ -2233,9 +2317,11 @@ Overworld_Entrance_BRANCH_RHO: ; branch here to continue into door
 ;================================================================================
 ; Paradox Cave Shopkeeper Fixes
 ;--------------------------------------------------------------------------------
-org $008C19 ; Bank00.asm@1633 (LDA.b #$01 : STA $420B)
-JSL ParadoxCaveGfxFix
-NOP
+; FIXME: ALttP Shops
+; org $008C19 ; Bank00.asm@1633 (LDA.b #$01 : STA $420B)
+; JSL ParadoxCaveGfxFix
+; NOP
+; label found in compression.asm:2
 ;================================================================================
 
 ;================================================================================
@@ -2253,14 +2339,16 @@ ADC.w #0000 ; put the carry bit into the accumulator instead of a hardcoded 1.
 ;================================================================================
 ; Chest Encryption
 ;--------------------------------------------------------------------------------
-org $01EBEB ; <- 0EBEB - bank01.asm : 13760 (INC $0E)
-JML.l GetChestData : NOP
-org $01EBDE ; <- 0EBDE - bank01.asm : 13740 (.couldntFindChest)
-Dungeon_OpenKeyedObject_couldntFindChest:
-org $01EBF0 ; <- 0EBF0 - bank01.asm : 13764 (.nextChest)
-Dungeon_OpenKeyedObject_nextChest:
-org $01EC14 ; <- 0EC14 - bank01.asm : 13783 (LDX $040C)
-Dungeon_OpenKeyedObject_bigChest:
-org $01EC38 ; <- 0EC38 - bank01.asm : 13809 (.smallChest)
-Dungeon_OpenKeyedObject_smallChest:
+; FIXME: ALttP Encryption
+; org $01EBEB ; <- 0EBEB - bank01.asm : 13760 (INC $0E)
+; JML.l GetChestData : NOP
+; org $01EBDE ; <- 0EBDE - bank01.asm : 13740 (.couldntFindChest)
+; Dungeon_OpenKeyedObject_couldntFindChest:
+; org $01EBF0 ; <- 0EBF0 - bank01.asm : 13764 (.nextChest)
+; Dungeon_OpenKeyedObject_nextChest:
+; org $01EC14 ; <- 0EC14 - bank01.asm : 13783 (LDX $040C)
+; Dungeon_OpenKeyedObject_bigChest:
+; org $01EC38 ; <- 0EC38 - bank01.asm : 13809 (.smallChest)
+; Dungeon_OpenKeyedObject_smallChest:
+; label found in decryption.asm:58
 ;================================================================================
