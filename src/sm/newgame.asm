@@ -24,9 +24,11 @@ introskip_doorflags:
     jmp .ret
 
 +
-    ; Set construction zone and red tower elevator doors to blue
+    ; Set construction zone and red tower elevator doors to blue, as well as Noob Bridge's Green door
+	; Noob Bridge is %00001000
+	;             is %00000100
     lda $7ed8b6
-    ora.w #$0004
+    ora.w #$000c
     sta $7ed8b6    
     lda $7ed8b2
     ora.w #$0001
