@@ -14,7 +14,9 @@ RTL
 ;!STABLE_SCRATCH = "$7EC178"
 !BANK_BASE = "#$29"
 
-org $BF8000
+;org $BF8000
+org $C7F970
+base $87C9F0  ; Crossover location. Moving it up a bit to utilize more free space in the bank. Useful for extra code!
 SwapSpriteIfNecissary:
 	PHP
 		SEP #$20 ; set 8-bit accumulator

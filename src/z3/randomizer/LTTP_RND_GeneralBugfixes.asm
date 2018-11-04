@@ -1,31 +1,35 @@
 ;================================================================================
 ; The Legend of Zelda, A Link to the Past - Randomizer General Development & Bugfixes
+; Some of this is going to end up moving, mainly due to the re-mapping of stuff due to the Crossover
+; Generally speaking, no other changes will be made unless necessary and noted
 ;================================================================================
-lorom
+; lorom
 
 ;================================================================================
 
 ;org $00FFC0 ; <- 7FC0 - Bank00.asm : 9173 (db "THE LEGEND OF ZELDA  " ; 21 bytes)
 ;db #$23, $4E
 
-org $00FFD5 ; <- 7FD5 - Bank00.asm : 9175 (db $20   ; rom layout)
+; org $00FFD5 ; <- 7FD5 - Bank00.asm : 9175 (db $20   ; rom layout)
 ;db #$35 ; set fast exhirom
-db #$30 ; set fast lorom
+; db #$30 ; set fast lorom
 
 ;org $00FFD6 ; <- 7FD6 - Bank00.asm : 9176 (db $02   ; cartridge type)
 ;db #$55 ; enable S-RTC
 
-org $00FFD7 ; <- 7FD7 - Bank00.asm : 9177 (db $0A   ; rom size)
-db #$0B ; mark rom as 16mbit
+; org $00FFD7 ; <- 7FD7 - Bank00.asm : 9177 (db $0A   ; rom size)
+; db #$0B ; mark rom as 16mbit
 
-org $00FFD8 ; <- 7FD8 - Bank00.asm : 9178 (db $03   ; ram size (sram size))
-db #$05 ; mark sram as 32k
+; org $00FFD8 ; <- 7FD8 - Bank00.asm : 9178 (db $03   ; ram size (sram size))
+; db #$05 ; mark sram as 32k
 
-org $3FFFFF ; <- 1FFFFF
-db #$00 ; expand file to 2mb
+; org $3FFFFF ; <- 1FFFFF
+; db #$00 ; expand file to 2mb
 
-org $1FFFF8 ; <- FFFF8 timestamp rom
-db #$20, #$18, #$07, #$23 ; year/month/day
+; org $1FFFF8 ; <- FFFF8 timestamp rom - LttP
+org $5FFFF8  ; Crossover offset - we'll put the timestamp at the very end of the rom just like LttPR does
+db #$20, #$18, #$07, #$23 ; year/month/day for LttP v30
+DB $20,$18,$11,$03  ; year/month/day for Crossover v11
 
 ;================================================================================
 
@@ -79,7 +83,9 @@ incsrc spriteswap.asm
 incsrc hashalphabethooks.asm
 
 ;org $208000 ; bank #$20
-org $A08000 ; bank #$A0
+;org $A08000 ; bank #$A0, LttPR
+org $F88000
+base $B88000  ; Crossover
 incsrc itemdowngrade.asm
 incsrc bugfixes.asm
 incsrc darkworldspawn.asm
@@ -127,29 +133,36 @@ incsrc doorframefixes.asm
 incsrc music.asm
 incsrc roomloading.asm
 incsrc icepalacegraphics.asm
-warnpc $A18000
+warnpc $B98000  ; LttPR set aside one 32kb bank, so we'll check for the same boundary in ExHiROM
 
 org $1C8000 ; text tables for translation
 incbin data/i18n_en.bin
 warnpc $1CF356
 
-org $A18000 ; static mapping area
+;org $A18000 ; static mapping area
+org $C7C9FD  ; this follows some code in spriteswap.asm
+base $87C9FD  ; Crossover
+; we aren't going to be (completely) inefficient any longer. Just insert all four files consecutively. Free space to be had!
 incsrc framehook.asm
-warnpc $A186B0
+;warnpc $A186B0
 
-org $A186B0 ; static mapping area, do not move
+;org $A186B0 ; static mapping area, do not move
+; org $C7FB00  ; sorry, we're moving it
+; base $87FB00  ; Crossover
 incsrc hud.asm
-warnpc $A18800
+;warnpc $A18800
 
-org $A18800 ; static mapping area
-incsrc zsnes.asm
-warnpc $A19000
+;org $A18800 ; static mapping area
+;incsrc zsnes.asm  ; we can't include this right now :(
+;warnpc $A19000
 
-org $A1A000 ; static mapping area. Referenced by front end. Do not move.
+; org $A1A000 ; static mapping area. Referenced by front end. Do not move.
 incsrc invertedstatic.asm
-warnpc $A1A100
+; warnpc $A1A100
 
-org $A1FF00 ; static mapping area
+;org $A1FF00 ; static mapping area
+; org $C7FF00
+; base $87FF00  ; Crossover
 incsrc init.asm
 
 org $A48000 ; code bank - PUT NEW CODE HERE
@@ -183,7 +196,8 @@ incsrc contrib.asm
 org $A38000
 incsrc stats/main.asm
 
-org $308000 ; bank #$30
+;org $308000 ; bank #$30
+org $400000  ; Crossover
 incsrc tables.asm
 
 ;incsrc sandbox.asm

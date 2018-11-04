@@ -30,8 +30,9 @@ NMIHookReturn:
 ; Anti-ZSNES Hook
 ;--------------------------------------------------------------------------------
 org $008023 ;<- 23 - Bank00.asm : 36 (LDA.w #$01FF : TCS)
-JML.l CheckZSNES
-ReturnCheckZSNES:
+; JML.l CheckZSNES
+; ReturnCheckZSNES:
+; label found in zsnes.asm. Needs large chunks of free space to implement, due to the image used
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
@@ -49,13 +50,16 @@ ReturnCheckZSNES:
 org $0083D4 ; <- 3D4 - Bank00.asm : 610 (LDA $4218 : STA $00)
 JML.l InvertDPad : SKIP 6
 InvertDPadReturn:
+; label found in dpadinvert.asm
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
 ; Enable/Disable Boots
 ;--------------------------------------------------------------------------------
-org $079C22 ; <- 39222 - Bank07.asm : 4494 (AND $7EF379 : BEQ .cantDoAction)
+;org $079C22 ; <- 39222 - Bank07.asm : 4494 (AND $7EF379 : BEQ .cantDoAction)
+org $479C22  ; Crossover location
 JSL.l ModifyBoots
+; label found in boots.asm
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
@@ -68,8 +72,10 @@ JSL.l OnDungeonExit : NOP #2
 ;================================================================================
 ; Quit Hook (for both types of save and quit)
 ;--------------------------------------------------------------------------------
-org $09F60B ; <- 4F60B - module_death.asm : 530 (LDA.b #$10 : STA $1C)
+;org $09F60B ; <- 4F60B - module_death.asm : 530 (LDA.b #$10 : STA $1C)
+org $49F60B  ; location in Crossover
 JSL.l OnQuit
+; label found in events.asm
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
