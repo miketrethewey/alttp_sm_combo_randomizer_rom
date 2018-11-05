@@ -135,41 +135,42 @@ endmacro
 ;carry clear if pass
 ;carry set if caught
 ;incsrc eventdata.asm
-ProcessEventItems:
-	;STA $FFFFFF
-	LDA $00 : PHA
-	LDA $01 : PHA
-	LDA $02 : PHA
-	PHY : PHP
-	PHB : LDA.b #$AF : PHA : PLB
-		LDA $02D8
-		CMP.b #$E0 : BNE +
-			REP #$30 ; set 16-bit accumulator & index registers
-			LDA $7EF450 : ASL : TAX
-			LDA.l EventDataOffsets, X : !ADD #EventDataTable : STA $00
-
-			SEP #$20 ; set 8-bit accumulator
-			LDA.b #$AF : STA $02
-
-			JSL.l LoadDialogAddressIndirect
-			LDA $7EF450 : INC : STA $7EF450
-
-			SEP #$10 ; set 8-bit index registers
-
-			LDA GoalItemRequirement : BEQ ++
-			LDA !GOAL_COUNTER : INC : STA !GOAL_COUNTER
-			CMP GoalItemRequirement : !BLT ++ : JSL.l ActivateGoal : ++
-			
-			LDX.b #$01 : BRA .done
-		+
-		LDX.b #$00
-	.done
-	PLB
-	PLP : PLY
-	PLA : STA $02
-	PLA : STA $01
-	PLA : STA $00
-RTS
+; FIXME: Commented out by Total
+;ProcessEventItems:
+;	;STA $FFFFFF
+;	LDA $00 : PHA
+;	LDA $01 : PHA
+;	LDA $02 : PHA
+;	PHY : PHP
+;	PHB : LDA.b #$AF : PHA : PLB
+;		LDA $02D8
+;		CMP.b #$E0 : BNE +
+;			REP #$30 ; set 16-bit accumulator & index registers
+;			LDA $7EF450 : ASL : TAX
+;			LDA.l EventDataOffsets, X : !ADD #EventDataTable : STA $00
+;
+;			SEP #$20 ; set 8-bit accumulator
+;			LDA.b #$AF : STA $02
+;
+;			JSL.l LoadDialogAddressIndirect
+;			LDA $7EF450 : INC : STA $7EF450
+;
+;			SEP #$10 ; set 8-bit index registers
+;
+;			LDA GoalItemRequirement : BEQ ++
+;			LDA !GOAL_COUNTER : INC : STA !GOAL_COUNTER
+;			CMP GoalItemRequirement : !BLT ++ : JSL.l ActivateGoal : ++
+;			
+;			LDX.b #$01 : BRA .done
+;		+
+;		LDX.b #$00
+;	.done
+;	PLB
+;	PLP : PLY
+;	PLA : STA $02
+;	PLA : STA $01
+;	PLA : STA $00
+;RTS
 ;--------------------------------------------------------------------------------
 AddReceivedItemExpandedGetItem:
 	PHX
@@ -182,7 +183,7 @@ AddReceivedItemExpandedGetItem:
 	;++
 	;STA $FFFFFF
 	LDA $02D8 ; check inventory
-	JSL.l FreeDungeonItemNotice
+;	JSL.l FreeDungeonItemNotice ; Commented out by Total
 	CMP.b #$0B : BNE + ; Bow
 		LDA !INVENTORY_SWAP_2 : AND.b #$40 : BEQ ++
 		LDA.l SilverArrowsUseRestriction : BNE ++
@@ -1030,6 +1031,12 @@ AttemptItemSubstitution:
 .exit
 	PLA : PLX
 RTS
+
+; FIXME:
+AttemptItemSubstitutionLong:
+	JSR AttemptItemSubstitution
+	RTL
+
 ;--------------------------------------------------------------------------------
 CountBottles:
 	LDX.b #$00

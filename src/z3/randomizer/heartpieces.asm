@@ -210,7 +210,9 @@ macro GetPossiblyEncryptedItem(ItemLabel,TableLabel)
 		LDA.w #<TableLabel> : STA $00
 		LDA.w #<TableLabel>>>16 : STA $02
 		LDA.w #<ItemLabel>-<TableLabel>
-		JSL RetrieveValueFromEncryptedTable
+; FIXME: ALttP Encryption
+; label found in decryption.asm:19
+;		JSL RetrieveValueFromEncryptedTable
 
 		PLX : STX $02 : PLX : STX $01
 	PLP : PLX

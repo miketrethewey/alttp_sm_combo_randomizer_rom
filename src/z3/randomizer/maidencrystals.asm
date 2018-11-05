@@ -21,7 +21,8 @@ MaidenCrystalScript:
     	LDA.b #$08 : STA $7EF3C7 ; Update the map icon to just be Ganon's Tower
 	+
 	
-	JSL.l MaybeWriteSRAMTrace
+; FIXME: SRAM Trace is deprecated
+;	JSL.l MaybeWriteSRAMTrace
 	
 JML.l $1ECF35 ; <- F4F35 - sprite_crystal_maiden.asm : 426
 ;--------------------------------------------------------------------------------

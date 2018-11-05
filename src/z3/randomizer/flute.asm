@@ -90,8 +90,10 @@ FreeDuckCheck:
     LDY.b #$00
     LDA.b #$37
     
-    JSL AddWeathervaneExplosion
-	BRA .skipSong
+; FIXME: ALttP Inverted State; Flute activation
+;    JSL AddWeathervaneExplosion
+;	BRA .skipSong
+; label found in LTTP_RND_GeneralBugfixes.asm:505
 	.done
     SEP #$20
 	LDA.b #$80 : STA $03F0 ; thing we wrote over, load flute timer

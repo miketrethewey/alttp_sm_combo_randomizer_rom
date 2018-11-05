@@ -49,14 +49,18 @@ LookupDamageLevel:
 		REP #$20 ; set 16-bit accumulator
 		TXA : LSR : TAX : BCS .lower
 .upper
-	PLP
-	LDA.l Damage_Table, X
-	LSR #4
+; FIXME:
+;	PLP
+;	LDA.l Damage_Table, X
+;	LSR #4
+; label found in LTTP_RND_GeneralBugfixes.asm:247
 RTL
 .lower
-	PLP
-	LDA.l Damage_Table, X
-	AND.b #$0F
+; FIXME:
+;	PLP
+;	LDA.l Damage_Table, X
+;	AND.b #$0F
+; label found in LTTP_RND_GeneralBugfixes.asm:247
 RTL
 ;================================================================================
 ; $7F50C0 - Sword Modifier

@@ -10,13 +10,21 @@ OnPrepFileSelect:
 		LDA.b #$06 : STA $14 ; thing we wrote over
 		RTL
 	+
-	JSL.l LoadAlphabetTilemap
-	JSL.l LoadFullItemTiles
+; FIXME:
+;	JSL.l LoadAlphabetTilemap
+; label found in hashalphabet.asm:40
+; FIXME:
+;	JSL.l LoadFullItemTiles
+; label found in fileselect.asm:728
 RTL
 ;--------------------------------------------------------------------------------
 OnDrawHud:
-	JSL.l DrawChallengeTimer ; this has to come before NewDrawHud because the timer overwrites the compass counter
-	JSL.l NewDrawHud
+; FIXME:
+;	JSL.l DrawChallengeTimer ; this has to come before NewDrawHud because the timer overwrites the compass counter
+; label found in timer.asm:127
+; FIXME:
+;	JSL.l NewDrawHud
+; label found in newhud.asm:1
 	JSL.l SwapSpriteIfNecissary
 JML.l ReturnFromOnDrawHud
 ;--------------------------------------------------------------------------------
@@ -106,10 +114,12 @@ OnFileLoad:
 	JSL.l RefreshRainAmmo
 	JSL.l SetEscapeAssist
 
-	LDA.l IsEncrypted : CMP.b #01 : BNE +
-		JSL LoadStaticDecryptionKey
-	+
-	SEP #$10 ; restore 8 bit index registers
+; FIXME: ALttP Encryption
+;	LDA.l IsEncrypted : CMP.b #01 : BNE +
+;		JSL LoadStaticDecryptionKey
+;	+
+;	SEP #$10 ; restore 8 bit index registers
+; label found in decryption.asm:6
 RTL
 ;--------------------------------------------------------------------------------
 !RNG_ITEM_LOCK_IN = "$7F5090"
@@ -144,7 +154,9 @@ RTL
 ;--------------------------------------------------------------------------------
 OnLinkDamaged:
 	JSL.l FlipperKill
-	JSL.l OHKOTimer
+; FIXME: ALttP OHKO
+;	JSL.l OHKOTimer
+; label found in timer.asm:180
 RTL
 ;--------------------------------------------------------------------------------
 OnEnterWater:
@@ -155,12 +167,16 @@ OnEnterWater:
 RTL
 ;--------------------------------------------------------------------------------
 OnLinkDamagedFromPit:
-	JSL.l OHKOTimer
-	LDA.b #$14 : STA $11 ; thing we wrote over
+; FIXME: ALttP OHKO
+;	JSL.l OHKOTimer
+;	LDA.b #$14 : STA $11 ; thing we wrote over
+; label found in timer.asm:180
 RTL
 ;--------------------------------------------------------------------------------
 OnLinkDamagedFromPitOutdoors:
-	JSL.l OHKOTimer ; make sure this is last
+; FIXME: ALttP OHKO
+;	JSL.l OHKOTimer ; make sure this is last
+; label found in timer.asm:180
 RTL
 ;--------------------------------------------------------------------------------
 !RNG_ITEM_LOCK_IN = "$7F5090"
@@ -179,12 +195,16 @@ OnLoadDuckMap:
 	LDA !DARK_DUCK_TEMP
 	BNE +
 		INC : STA !DARK_DUCK_TEMP
-		JSL OverworldMap_InitGfx : DEC $0200
-		
+; FIXME: ALttP Inverted; Flute map
+;		JSL OverworldMap_InitGfx : DEC $0200
+; label found in LTTP_RND_GeneralBugfixes.asm:520
+
 		RTL
 	+
 	LDA.b #$00 : STA !DARK_DUCK_TEMP
-	JSL OverworldMap_DarkWorldTilemap
+; FIXME: ALttP Inverted; Flute map
+;	JSL OverworldMap_DarkWorldTilemap
+; label found in LTTP_RND_GeneralBugfixes.asm:523
 RTL
 ;--------------------------------------------------------------------------------
 PreItemGet:
@@ -192,7 +212,8 @@ PreItemGet:
 RTL
 ;--------------------------------------------------------------------------------
 PostItemGet:
-	JSL.l MaybeWriteSRAMTrace
+; FIXME: SRAM Trace is deprecated
+;	JSL.l MaybeWriteSRAMTrace
 RTL
 ;--------------------------------------------------------------------------------
 PostItemAnimation:
@@ -200,7 +221,8 @@ PostItemAnimation:
 
 	LDA $7F50A0 : BEQ +
 		STZ $1CF0 : STZ $1CF1 ; reset decompression buffer
-		JSL.l Main_ShowTextMessage_Alt
+; FIXME: ALttP Dialog
+;		JSL.l Main_ShowTextMessage_Alt
 		LDA.b #$00 : STA $7F50A0
 	+
 

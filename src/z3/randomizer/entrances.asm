@@ -141,8 +141,12 @@ JML.l AllowStartFromExitReturn
 	STZ $010A
 
 	STZ $04AA
-	JSL Equipment_SearchForEquippedItemLong
-	JSL HUD_RebuildLong2
+; FIXME:
+;	JSL Equipment_SearchForEquippedItemLong
+; label found in LTTP_RND_GeneralBugfixes.asm:569
+; FIXME:
+;	JSL HUD_RebuildLong2
+; label found in LTTP_RND_GeneralBugfixes.asm:584
 	JSL $0DDD32 ; Equipment_UpdateEquippedItemLong
 RTL
 

@@ -105,7 +105,10 @@ GetStaticRNG:
 	REP #$20 ; set 16-bit accumulator and index registers
 	AND.w #$007F
 	ASL : TAX : LDA !RNG_POINTERS, X : INC : AND.w #$03FF : STA !RNG_POINTERS, X : TAX : ASL ; increment pointer and move value to X
-	LDA Static_RNG, X ; load RNG value
+; FIXME:
+;	LDA Static_RNG, X ; load RNG value
+; label found in LTTP_RND_GeneralBugfixes.asm:277
+
 	PLP : PLX
 RTL
 ;--------------------------------------------------------------------------------

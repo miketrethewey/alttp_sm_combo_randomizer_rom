@@ -1331,8 +1331,10 @@ db $04
 ;org $06B2AA ; <- 332AA sprite_smithy_bros.asm : 152 (JSL Sprite_ShowSolicitedMessageIfPlayerFacing)
 ;JSL Sprite_ShowMessageFromPlayerContact ; Inverted uses Sprite_ShowMessageFromPlayerContact
 ;;---------------------------------------------------------------------------------
-org $00886e ; <- Bank00.asm : 1050 (LDA Overworld_TileAttr, X)
-LDA Overworld_TileAttr, X ; use "JML InvertedTileAttributeLookup" for inverted
+; FIXME: ALttP Inverted
+; org $00886e ; <- Bank00.asm : 1050 (LDA Overworld_TileAttr, X)
+; LDA Overworld_TileAttr, X ; use "JML InvertedTileAttributeLookup" for inverted
+; label found in LTTP_RND_GeneralBugfixes.asm:590
 Overworld_GetTileAttrAtLocation_continue:
 ;================================================================================
 org $0DDBEC ; <- 6DBEC
