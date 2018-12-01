@@ -487,7 +487,7 @@ Music_Skull:
 db $16, $16, $16, $16
 
 org $02D592+$76
-Music_Skul_Drop:
+Music_Skull_Drop:
 db $16, $16, $16, $16
 
 org $02D592+$34
@@ -1419,7 +1419,7 @@ dw #9999 ; Rupee Limit
 ; $7F50C2 - Armor Modifier
 ; $7F50C3 - Magic Modifier
 ; $7F50C4 - Light Cone Modifier
-; $7F50C5 - Cucco Attack Modifier
+; $7F50C5 - Unused
 ; $7F50C6 - Old Man Dash Modifier
 ; $7F50C7 - Ice Physics Modifier
 ; $7F50C8 - Infinite Arrows Modifier
