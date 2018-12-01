@@ -1,8 +1,8 @@
 ; Transition into Zelda
 
 
-; Place all the transition code in upper bank B8/F8 (free space in SM)
-org $eaf800     
+; Place all the transition code in the top of the upper bank AA/EA (free space in SM)
+org $eaf800
 base $aaf800
 
 
@@ -10,7 +10,7 @@ base $aaf800
 ; darkworld flag in !SRAM_ALTTP_DARKWORLD
 transition_to_zelda:
     sei                         ; Disable IRQ's
-    
+
     %a8()
     %i16()
 
@@ -40,13 +40,13 @@ transition_to_zelda:
 
     ldx.w #zelda_wram>>16       ; Put Zelda VRAM bank in X
     jsl copy_to_wram            ; Call the DMA routine to copy Zelda template VRAM from ROM
-    
+
     %ai16()
-    
+
     ldx #$01ec
     txs                         ; Adjust stack pointer
 
-    lda #$0000                  ; Set the "game flag" to Zelda so IRQ's/NMI runs using the 
+    lda #$0000                  ; Set the "game flag" to Zelda so IRQ's/NMI runs using the
     sta !SRAM_CURRENT_GAME      ; correct game
 
     jsr zelda_copy_sram         ; Copy SRAM back to RAM
@@ -55,7 +55,7 @@ transition_to_zelda:
     jsr zelda_spc_load          ; Load Zelda's music engine
     jsr zelda_blank_cgram       ; Blank out CGRAM
     jsr zelda_restore_dmaregs   ; Restore ALTTP DMA regs
-    
+
     jsl zelda_restore_randomizer_ram
 
     lda !SRAM_ALTTP_EXIT
@@ -161,10 +161,10 @@ transition_to_zelda:
     %ai16()
 
     cli                         ; Enable interrupts and push processor status to the stack
-    ;php   
+    ;php
 
     lda $4210                   ; Acknowledge any pending IRQ's
-    
+
     pea $0707
     plb
 
@@ -209,7 +209,7 @@ zelda_spc_reset:
     pha
     php
     %a8()
-    
+
     lda #$ff                    ; Send N-SPC into "upload mode"
     sta $2140
 
@@ -239,9 +239,9 @@ zelda_spc_load:
     cpx #$0100
     bne -
 
-    lda #$00                    
-    sta $00                     
-    lda #$80                    
+    lda #$00
+    sta $00
+    lda #$80
     sta $01
     lda #$19
     sta $02
@@ -269,14 +269,14 @@ zelda_copy_sram:
     phb
 
     rep #$20
-    
+
     ;lda $C8
     ;asl a
     ;inc
     ;inc
     lda #$0000
     sta $a07ffe     ; Always set save slot to 1 for now
-    
+
     sep #$20
     %ai16()
     pea $7e7e
@@ -373,14 +373,14 @@ zelda_restore_dmaregs:
     plp
     rts
 
-zelda_copy_sm_items:        
+zelda_copy_sm_items:
     pha
     phx
     php
     %ai16()
     ldx #$0000
 -
-    lda.l !SRAM_SM_START,x        
+    lda.l !SRAM_SM_START,x
     sta.l !SRAM_SM_ITEM_BUF,X      ; save to temporary buffer
     inx : inx
     cpx #$0040
@@ -400,8 +400,8 @@ zelda_save_sm_items:        ; Restores SM items to the real SRAM
     %ai16()
     ldx #$0000
 -
-    lda.l !SRAM_SM_ITEM_BUF,X    
-    sta.l !SRAM_SM_START,x       
+    lda.l !SRAM_SM_ITEM_BUF,X
+    sta.l !SRAM_SM_START,x
     inx : inx
     cpx #$0040
     bne -
@@ -431,7 +431,7 @@ zelda_dmaregs:
     db $01, $18, $c0, $a5, $7e, $00, $00, $ff, $ff, $ff, $ff, $ff, $00, $00, $00, $ff
     db $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $00, $00, $00, $ff
     db $41, $26, $f6, $f2, $00, $ff, $ff, $00, $ff, $ff, $ff, $ff, $00, $00, $00, $ff
-    db $41, $26, $f6, $f2, $00, $c2, $1c, $00, $fc, $f2, $8f, $ff, $00, $00, $00, $ff    
+    db $41, $26, $f6, $f2, $00, $c2, $1c, $00, $fc, $f2, $8f, $ff, $00, $00, $00, $ff
 
 ; Game state template data (banks e0-e7 = ALTTP, e8-ef = SM)
 org $e00000

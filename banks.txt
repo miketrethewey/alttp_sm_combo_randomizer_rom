@@ -3,7 +3,7 @@ ROM
 ===============================================================================
 
 Bank            Mirror banks    Content
-------------    ------------    ---------  
+------------    ------------    ---------
 00:8000-FFFF    20, 40, 60      ALTTP Bank #00
 ...                             ALTTP Bank #01-1E
 1F:8000-FFFF    3F, 5F, 7F      ALTTP Bank #1F
@@ -54,6 +54,7 @@ Bank            Mirror banks    Content
 8F:8000-E99F    CF              SM Bank #8F - Room MDB
 8F:EA00-EAFF    CF              -- SM Golden 4 Skip --
 8F:EB00-EBFF    CF              -- SM Wake Zebes --
+8F:EC00-ECFF    CF              -- SM Escape Climb fix --
 90:8000-F63F    D0              SM Bank #90
 91:8000-FFFF    D1              SM Bank #91
 92:8000-EDFF    D2              SM Bank #92
@@ -172,7 +173,7 @@ SRAM
 ===============================================================================
 
 Bank            Mirror banks    Content
-------------    ------------    ---------  
+------------    ------------    ---------
 a0:6000-7FFF    --              -- ALTTP Main SRAM --
 a1:6000-732F    --              -- SM Main SRAM --
 a1:7330-7FD0    --              -- Randomizer SRAM --
